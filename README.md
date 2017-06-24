@@ -14,4 +14,4 @@ Before you begin you need to make sure you have a mongoDB database hosted somewh
    or in **server.js** file you could simply replace **```config.dbUrl```** with your mongodb database url.
 
 2. Run **_nmp start_** command to start the server.
-3. Use **Postman** chrome extension to perform the CRUD operations such as GET, POST, PUT, DELETE.
+3. Use **Postman** chrome extension to perform the CRUD operations such as GET, POST, PUT, DELETE. (Optional)
