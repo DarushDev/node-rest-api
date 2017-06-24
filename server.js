@@ -73,18 +73,29 @@ router.route('/bears/:bear_id')
 
         Bear.findById(req.params.bear_id, function (err, result) {
 
-            if(err)
+            if (err)
                 res.send(err);
 
             result.name = req.body.name; // update the returned bear info
 
             result.save(function (err) { //save the bear info into the database
-                if(err)
+                if (err)
                     res.send(err);
 
                 res.json({message: "Bear updated!"});
             });
 
+        })
+    })
+
+    // delete the bear with the given id using DELETE method
+    .delete(function (req, res) {
+        Bear.remove({_id: req.params.bear_id}, function (err, result) {
+
+            if(err)
+                res.send(err);
+
+            res.json({message: "Bear successfully deleted!"});
         })
     });
 
