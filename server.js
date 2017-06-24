@@ -33,17 +33,28 @@ router.get('/', function (req, res) {
     res.json({message: 'Welcome to our API!'});
 });
 
-router.route('/bears').post(function (req, res) {
-    var bear = new Bear();
-    bear.name = req.body.name;
+router.route('/bears')
+    //create a bear (accessed at POST http://localhost:8080/api/bears)
+    .post(function (req, res) {
+        var bear = new Bear();
+        bear.name = req.body.name;
 
-    bear.save(function (err) {
-        if(err)
-            res.send(err);
+        bear.save(function (err) {
+            if (err)
+                res.send(err);
 
-        res.json({message: 'Bear created!'});
+            res.json({message: 'Bear created!'});
+        })
     })
-});
+    //get all the bears (accessed at GET http://localhost:8080/api/bears)
+    .get(function (req, res) {
+        Bear.find(function (err, result) {
+            if(err)
+                res.send(err);
+
+            res.json(result);
+        })
+    });
 
 //<========== REGISTER OUR ROUTES ==========>
 // all of our routes will be prefixed with /api
