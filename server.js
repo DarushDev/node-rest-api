@@ -21,12 +21,29 @@ var Bear = require('./app/models/bear');
 // <========== ROUTES FOR OUR API ==========>
 var router = express.Router(); // get an instance of the express Router
 
-// Sample route
+// middleware to use for all requrests
+router.use(function (req, res, next) {
+    console.log('A request came.');
+    next();// make sure we go to the next routes and don't stop here
+});
+
+
+// test route to make sure everything is working
 router.get('/', function (req, res) {
     res.json({message: 'Welcome to our API!'});
 });
 
-// more routes here:
+router.route('/bears').post(function (req, res) {
+    var bear = new Bear();
+    bear.name = req.body.name;
+
+    bear.save(function (err) {
+        if(err)
+            res.send(err);
+
+        res.json({message: 'Bear created!'});
+    })
+});
 
 //<========== REGISTER OUR ROUTES ==========>
 // all of our routes will be prefixed with /api
