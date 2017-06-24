@@ -57,6 +57,7 @@ router.route('/bears')
     });
 
 router.route('/bears/:bear_id')
+
     //get the bear with the given id (accessed at GET http://localhost:8080/api/bears/:bear_id)
     .get(function (req, res) {
         Bear.findById(req.params.bear_id, function (err, result) {
@@ -65,6 +66,26 @@ router.route('/bears/:bear_id')
 
             res.json(result);
         });
+    })
+
+    //update the bear with the given id using PUT method
+    .put(function (req, res) {
+
+        Bear.findById(req.params.bear_id, function (err, result) {
+
+            if(err)
+                res.send(err);
+
+            result.name = req.body.name; // update the returned bear info
+
+            result.save(function (err) { //save the bear info into the database
+                if(err)
+                    res.send(err);
+
+                res.json({message: "Bear updated!"});
+            });
+
+        })
     });
 
 //<========== REGISTER OUR ROUTES ==========>
